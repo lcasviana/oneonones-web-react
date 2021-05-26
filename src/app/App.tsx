@@ -1,7 +1,11 @@
+import { Typography } from '@material-ui/core';
+
 function App() {
   return (
     <>
-      One-on-one's
+      <Typography variant="h6" component="h6">
+        One-on-one's
+      </Typography>
     </>
   );
 }
