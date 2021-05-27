@@ -1,10 +1,24 @@
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import { teal } from '@material-ui/core/colors';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app/App';
+import ReactDom from 'react-dom';
+import { App } from './App/App';
 
-ReactDOM.render(
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: teal[600],
+    },
+    type: 'dark',
+  },
+});
+
+ReactDom.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
