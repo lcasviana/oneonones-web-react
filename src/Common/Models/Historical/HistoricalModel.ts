@@ -5,5 +5,5 @@ export type HistoricalModel = {
   leader: EmployeeModel;
   led: EmployeeModel;
   occurrence: Date;
-  commentary: string;
+  commentary: string | null;
 };

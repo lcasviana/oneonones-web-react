@@ -5,7 +5,7 @@ import { Home } from './Home/Home';
 import { Login } from './Login/Login';
 import { PublicRoute } from '../Core/Routes/PublicRoute';
 
-export const App = () => (
+export const App: React.FC = () => (
   <>
     <BrowserRouter>
       <Switch>

@@ -5,5 +5,5 @@ import { StatusModel } from './StatusModel';
 export type ComposeModel = {
   oneonone: OneononeModel;
   historical: HistoricalModel[];
-  status: StatusModel | undefined;
+  status: StatusModel | null;
 };

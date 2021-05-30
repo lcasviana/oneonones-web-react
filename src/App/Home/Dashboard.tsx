@@ -64,7 +64,7 @@ export const Dashboard = ({ dashboard }: any) => (
                 <Button variant="contained" color="primary" startIcon={<Add />} size="small">Register</Button>
                 <Button startIcon={<History />} size="small">Historical</Button>
                 <Button startIcon={<Update />} size="small">Frequency</Button>
-                <Button onClick={() => OneononesRepository.remove(compose.oneonone.id)} startIcon={<Delete />} size="small">Cancel</Button>
+                <Button onClick={() => OneononesRepository.delete(compose.oneonone.id)} startIcon={<Delete />} size="small">Cancel</Button>
               </div>
 
             </Card>

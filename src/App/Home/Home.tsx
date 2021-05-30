@@ -3,7 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/co
 import { Add, Menu } from '@material-ui/icons';
 import { useDashboard } from '../../Core/Hooks/useDashboard';
 import { Dashboard } from './Dashboard';
-import { OneononeRegister } from './OneononeRegister';
+import { OneononeInsert } from './Oneonone/OneononeInsert';
 
 export const Home = () => {
   const dashboard = useDashboard('amanda.silvestre@dtidigital.com.br');
@@ -27,7 +27,7 @@ export const Home = () => {
         {!!dashboard && <Dashboard dashboard={dashboard} />}
       </main>
 
-      <OneononeRegister open={oneononeRegisterDialog} onClose={() => setOneononeRegisterDialog(false)} />
+      <OneononeInsert open={oneononeRegisterDialog} onClose={() => setOneononeRegisterDialog(false)} />
     </>
   );
 };
