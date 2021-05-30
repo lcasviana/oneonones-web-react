@@ -1,4 +1,4 @@
-import { EmployeeModel } from './EmployeeModel';
+import { EmployeeModel } from '../Employee/EmployeeModel';
 
 export type HistoricalModel = {
   id: string;

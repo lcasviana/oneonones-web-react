@@ -1,10 +1,13 @@
-import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import { Add, Menu } from '@material-ui/icons';
 import { useDashboard } from '../../Core/Hooks/useDashboard';
 import { Dashboard } from './Dashboard';
+import { OneononeRegister } from './OneononeRegister';
 
 export const Home = () => {
   const dashboard = useDashboard('amanda.silvestre@dtidigital.com.br');
+  const [oneononeRegisterDialog, setOneononeRegisterDialog] = useState(false);
 
   return (
     <>
@@ -15,12 +18,16 @@ export const Home = () => {
           </IconButton>
           <Typography variant="h6">
             One-on-one's
-        </Typography>
+          </Typography>
         </Toolbar>
       </AppBar>
-      <main className="pa3">
-        {!!dashboard && Dashboard(dashboard)}
+
+      <main className="flex flex-column items-start pa3" style={{ gap: '1rem' }}>
+        <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => setOneononeRegisterDialog(true)}>New one-on-one</Button>
+        {!!dashboard && <Dashboard dashboard={dashboard} />}
       </main>
+
+      <OneononeRegister open={oneononeRegisterDialog} onClose={() => setOneononeRegisterDialog(false)} />
     </>
   );
 };

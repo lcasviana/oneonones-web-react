@@ -1,15 +1,13 @@
-import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
-import { DashboardModel } from '../../Common/Models/DashboardModel';
+import { DashboardModel } from '../../Common/Models/Dashboard/DashboardModel';
+import { DashboardsRepository } from '../Repositories/DashboardsRepository';
 
 export const useDashboard = (email: string): DashboardModel | undefined => {
   const [dashboard, setDashboard] = useState<DashboardModel | undefined>(undefined);
 
   useEffect(() => {
-    const url = `https://oneonones-api.herokuapp.com/api/v1/dashboards?email=${email}`;
-    axios
-      .get<DashboardModel>(url)
-      .then(({ data }: AxiosResponse<DashboardModel>) => setDashboard(data));
+    DashboardsRepository.obtainByEmail(email)
+      .then((dashboard) => setDashboard(dashboard));
   }, [email])
 
   return dashboard;
