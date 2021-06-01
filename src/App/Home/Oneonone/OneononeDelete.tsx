@@ -3,6 +3,7 @@ import { AppBar, Button, Dialog, Grid, IconButton, Toolbar, Typography } from '@
 import { Add, Close } from '@material-ui/icons';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
+import { ErrorModel } from '../../../Common/Models/ErrorModel';
 
 interface OneononeDeleteProps {
   open: boolean;
@@ -10,14 +11,11 @@ interface OneononeDeleteProps {
   oneonone: OneononeModel;
 }
 
-export const OneononeInsert: React.FC<OneononeDeleteProps> = ({ open, onClose, oneonone }: OneononeDeleteProps) => {
+export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, oneonone }: OneononeDeleteProps) => {
   const remove = () => {
     OneononesRepository.delete(oneonone.id)
-      .then(() => alert('Deleted!'))
-      .catch((e) => {
-        console.log(e);
-        alert('Error!');
-      })
+      .then(_ => alert('Deleted!'))
+      .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(onClose);
   };
 
@@ -37,9 +35,9 @@ export const OneononeInsert: React.FC<OneononeDeleteProps> = ({ open, onClose, o
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
-          <div className="flex" style={{ gap: '1rem' }}>
+          <div className="flex mt2" style={{ gap: '1rem' }}>
             <Button onClick={onClose} startIcon={<Close />} size="small">Cancel</Button>
-            <Button onClick={remove} startIcon={<Add />} size="small">Register</Button>
+            <Button variant="contained" color="primary" onClick={remove} startIcon={<Add />} size="small">Remove</Button>
           </div>
 
         </Grid>

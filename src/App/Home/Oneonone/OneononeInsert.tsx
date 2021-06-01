@@ -6,6 +6,8 @@ import { useEmployeeAll } from '../../../Core/Hooks/useEmployee';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
+import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
+import { ErrorModel } from '../../../Common/Models/ErrorModel';
 
 interface OneononeInsertProps {
   open: boolean;
@@ -19,21 +21,18 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
 
   const insert = () => {
-    if (!person || !leader || !frequency) {
+    if (person === null || leader === null || frequency === null) {
       alert('Bad request!');
       return;
     }
 
     OneononesRepository.insert({
-      leaderId: leader ? person.id : '566ef507-71a1-46d2-995b-603efd95a30c',
-      ledId: leader ? '566ef507-71a1-46d2-995b-603efd95a30c' : person.id,
+      leaderId: leader ? person.id : AuthenticationRepository.user.id,
+      ledId: leader ? AuthenticationRepository.user.id : person.id,
       frequency,
     })
-      .then(() => alert('Created!'))
-      .catch((e) => {
-        console.log(e);
-        alert('Error!');
-      })
+      .then(_ => alert('Created!'))
+      .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };
 
@@ -98,9 +97,9 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
             />
           </Grid>
 
-          <div className="flex" style={{ gap: '1rem' }}>
+          <div className="flex mt2" style={{ gap: '1rem' }}>
             <Button onClick={close} startIcon={<Close />} size="small">Cancel</Button>
-            <Button onClick={insert} startIcon={<Add />} size="small">Register</Button>
+            <Button variant="contained" color="primary" onClick={insert} startIcon={<Add />} size="small">Register</Button>
           </div>
 
         </Grid>

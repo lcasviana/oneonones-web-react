@@ -5,6 +5,7 @@ import { Autocomplete } from '@material-ui/lab';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
+import { ErrorModel } from '../../../Common/Models/ErrorModel';
 
 interface OneononeUpdateProps {
   open: boolean;
@@ -15,8 +16,8 @@ interface OneononeUpdateProps {
 export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, oneonone }: OneononeUpdateProps) => {
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
 
-  const register = () => {
-    if (!frequency) {
+  const update = () => {
+    if (frequency === null) {
       alert('Bad request!');
       return;
     }
@@ -25,11 +26,8 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
       ...oneonone,
       frequency,
     })
-      .then(() => alert('Updated!'))
-      .catch((e) => {
-        console.log(e);
-        alert('Error!');
-      })
+      .then(_ => alert('Updated!'))
+      .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };
 
@@ -51,7 +49,7 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
               <Close />
             </IconButton>
             <Typography variant="h6">
-              Register one-on-one
+              Change one-on-one
             </Typography>
           </Toolbar>
         </AppBar>
@@ -69,9 +67,9 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
             />
           </Grid>
 
-          <div className="flex" style={{ gap: '1rem' }}>
+          <div className="flex mt2" style={{ gap: '1rem' }}>
             <Button onClick={close} startIcon={<Close />} size="small">Cancel</Button>
-            <Button onClick={register} startIcon={<Add />} size="small">Register</Button>
+            <Button variant="contained" color="primary" onClick={update} startIcon={<Add />} size="small">Update</Button>
           </div>
 
         </Grid>

@@ -10,7 +10,7 @@ interface HistoricalDeleteProps {
   historical: HistoricalModel;
 }
 
-export const HistoricalInsert: React.FC<HistoricalDeleteProps> = ({ open, onClose, historical }: HistoricalDeleteProps) => {
+export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClose, historical }: HistoricalDeleteProps) => {
   const remove = () => {
     HistoricalsRepository.delete(historical.id)
       .then(() => alert('Deleted!'))

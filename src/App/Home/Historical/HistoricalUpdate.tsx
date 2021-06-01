@@ -10,7 +10,7 @@ interface HistoricalUpdateProps {
   historical: HistoricalModel;
 }
 
-export const OneononeUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClose, historical }: HistoricalUpdateProps) => {
+export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClose, historical }: HistoricalUpdateProps) => {
   const [commentary, setCommentary] = useState<string | null>(null);
 
   const register = () => {
