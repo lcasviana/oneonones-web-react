@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { AppBar, Button, Dialog, Grid, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
-import { Add, Close } from '@material-ui/icons';
+import { Close, Update } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
+import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 
 interface OneononeUpdateProps {
   open: boolean;
@@ -14,6 +15,7 @@ interface OneononeUpdateProps {
 }
 
 export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, oneonone }: OneononeUpdateProps) => {
+  const user = AuthenticationRepository.user;
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
 
   const update = () => {
@@ -56,6 +58,27 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
+          <Grid container item xs={12} sm={12} md={6} lg={4} xl={3}>
+            {user.id !== oneonone.leader.id &&
+              <Grid item xs={12} sm={6}>
+                <Typography variant="caption" color="textSecondary">Leader</Typography>
+                <Typography variant="body1">{oneonone.leader.name}</Typography>
+              </Grid>
+            }
+
+            {user.id !== oneonone.led.id &&
+              <Grid item xs={12} sm={6}>
+                <Typography variant="caption" color="textSecondary">Led</Typography>
+                <Typography variant="body1">{oneonone.led.name}</Typography>
+              </Grid>
+            }
+
+            <Grid item xs={12} sm={6}>
+              <Typography variant="caption" color="textSecondary">Frequency</Typography>
+              <Typography variant="body1">{FrequencyEnum[oneonone.frequency]}</Typography>
+            </Grid>
+          </Grid>
+
           <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
             <Typography variant="caption" color="textSecondary">Which frequency you will meet?</Typography>
             <Autocomplete
@@ -68,8 +91,8 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
           </Grid>
 
           <div className="flex mt2" style={{ gap: '1rem' }}>
-            <Button onClick={close} startIcon={<Close />} size="small">Cancel</Button>
-            <Button variant="contained" color="primary" onClick={update} startIcon={<Add />} size="small">Update</Button>
+            <Button onClick={close} startIcon={<Close />}>Cancel</Button>
+            <Button variant="contained" color="primary" onClick={update} startIcon={<Update />}>Update</Button>
           </div>
 
         </Grid>

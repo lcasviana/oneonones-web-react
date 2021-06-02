@@ -5,7 +5,7 @@ import { HistoricalInputModel } from '../../Common/Models/Historical/HistoricalI
 import { HistoricalModel } from '../../Common/Models/Historical/HistoricalModel';
 
 export class HistoricalsRepository {
-  private static readonly baseUrl = `${Configuration.oneononeApi}/oneonones`;
+  private static readonly baseUrl = `${Configuration.oneononeApi}/historicals`;
 
   public static async insert(historicalInput: HistoricalInputModel): Promise<void> {
     return axios.post<HistoricalInputModel, AxiosResponse<void>>(`${HistoricalsRepository.baseUrl}`, historicalInput)

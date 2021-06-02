@@ -6,6 +6,8 @@ import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';
 import { Add, Delete, History, Update } from '@material-ui/icons';
 import { OneononeDelete } from '../Oneonone/OneononeDelete';
 import { OneononeUpdate } from '../Oneonone/OneononeUpdate';
+import { HistoricalInsert } from '../Historical/HistoricalInsert';
+import { HistoricalObtain } from '../Historical/HistoricalObtain';
 
 type ComposeProps = {
   user: EmployeeModel;
@@ -15,6 +17,8 @@ type ComposeProps = {
 export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps) => {
   const [oneononeUpdateDialog, setOneononeUpdateDialog] = useState(false);
   const [oneononeDeleteDialog, setOneononeDeleteDialog] = useState(false);
+  const [historicalObtainDialog, setHistoricalObtainDialog] = useState(false);
+  const [historicalInsertDialog, setHistoricalInsertDialog] = useState(false);
 
   const lastOccurrence = compose.status ? new Date(compose.status.lastOccurrence).toISOString().substr(0, 10) : null;
   const nextOccurrence = compose.status ? new Date(compose.status.nextOccurrence).toISOString().substr(0, 10) : null;
@@ -25,17 +29,17 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
         <Card className="flex flex-column pa2" style={{ gap: '0.25rem' }}>
 
           {user.id !== compose.oneonone.leader.id &&
-            <div>
+            <Grid item xs={12}>
               <Typography variant="caption" color="textSecondary">Leader</Typography>
               <Typography variant="h5">{compose.oneonone.leader.name}</Typography>
-            </div>
+            </Grid>
           }
 
           {user.id !== compose.oneonone.led.id &&
-            <div>
+            <Grid item xs={12}>
               <Typography variant="caption" color="textSecondary">Led</Typography>
               <Typography variant="h5">{compose.oneonone.led.name}</Typography>
-            </div>
+            </Grid>
           }
 
           {!!compose.status && <Grid container>
@@ -69,8 +73,8 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
           <Divider style={{ margin: '0.5rem 0' }} />
 
           <div className="flex flex-wrap" style={{ gap: '1rem' }}>
-            <Button variant="contained" color="primary" startIcon={<Add />} size="small">Register</Button>
-            <Button startIcon={<History />} size="small">Historical</Button>
+            <Button onClick={() => setHistoricalInsertDialog(true)} variant="contained" color="primary" startIcon={<Add />} size="small">Register</Button>
+            <Button onClick={() => setHistoricalObtainDialog(true)} startIcon={<History />} size="small">Historical</Button>
             <Button onClick={() => setOneononeUpdateDialog(true)} startIcon={<Update />} size="small">Frequency</Button>
             <Button onClick={() => setOneononeDeleteDialog(true)} startIcon={<Delete />} size="small">Cancel</Button>
           </div>
@@ -80,6 +84,8 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
 
       <OneononeUpdate open={oneononeUpdateDialog} onClose={() => setOneononeUpdateDialog(false)} oneonone={compose.oneonone} />
       <OneononeDelete open={oneononeDeleteDialog} onClose={() => setOneononeDeleteDialog(false)} oneonone={compose.oneonone} />
+      <HistoricalObtain open={historicalObtainDialog} onClose={() => setHistoricalObtainDialog(false)} oneonone={compose.oneonone} historical={compose.historical} />
+      <HistoricalInsert open={historicalInsertDialog} onClose={() => setHistoricalInsertDialog(false)} oneonone={compose.oneonone} />
     </>
   );
 };

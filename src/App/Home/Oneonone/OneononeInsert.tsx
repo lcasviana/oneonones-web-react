@@ -92,14 +92,14 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
               value={frequency}
               onChange={(_, frequency: FrequencyEnum | null) => setFrequency(frequency)}
               options={[7, 15, 30, 60, 90, 180, 365, 999]}
-              getOptionLabel={(frequency) => FrequencyEnum[frequency as any]}
+              getOptionLabel={(frequency) => FrequencyEnum[frequency as number]}
               renderInput={(params) => <TextField {...params} variant="outlined" />}
             />
           </Grid>
 
           <div className="flex mt2" style={{ gap: '1rem' }}>
-            <Button onClick={close} startIcon={<Close />} size="small">Cancel</Button>
-            <Button variant="contained" color="primary" onClick={insert} startIcon={<Add />} size="small">Register</Button>
+            <Button onClick={close} startIcon={<Close />}>Cancel</Button>
+            <Button variant="contained" color="primary" onClick={insert} startIcon={<Add />}>Register</Button>
           </div>
 
         </Grid>
