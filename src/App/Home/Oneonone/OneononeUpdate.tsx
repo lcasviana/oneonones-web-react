@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Dialog, Grid, IconButton, TextField, Toolbar, Typography } from '@material-ui/core';
-import { Close, Update } from '@material-ui/icons';
+import { Button, Divider, Grid, TextField, Typography } from '@material-ui/core';
+import { Close, Event } from '@material-ui/icons';
 import { Autocomplete } from '@material-ui/lab';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
+import { ActionDialog } from '../../Shared/ActionDialog';
 
 interface OneononeUpdateProps {
   open: boolean;
@@ -44,21 +45,11 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
 
   return (
     <>
-      <Dialog fullScreen open={open} onClose={close}>
-        <AppBar position="sticky">
-          <Toolbar variant="dense">
-            <IconButton onClick={close} edge="start">
-              <Close />
-            </IconButton>
-            <Typography variant="h6">
-              Change one-on-one
-            </Typography>
-          </Toolbar>
-        </AppBar>
+      <ActionDialog open={open} onClose={close} title={'Update frequency'} Content={() =>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
-          <Grid container item xs={12} sm={12} md={6} lg={4} xl={3}>
+          <Grid container item xs={12}>
             {user.id !== oneonone.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
@@ -79,7 +70,9 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
             </Grid>
           </Grid>
 
-          <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+          <Divider />
+
+          <Grid item xs={12}>
             <Typography variant="caption" color="textSecondary">Which frequency you will meet?</Typography>
             <Autocomplete
               value={frequency}
@@ -90,13 +83,13 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
             />
           </Grid>
 
-          <div className="flex mt2" style={{ gap: '1rem' }}>
+          <div className="flex mt2 justify-end" style={{ gap: '1rem' }}>
             <Button onClick={close} startIcon={<Close />}>Cancel</Button>
-            <Button variant="contained" color="primary" onClick={update} startIcon={<Update />}>Update</Button>
+            <Button variant="contained" color="primary" onClick={update} startIcon={<Event />}>Update</Button>
           </div>
 
         </Grid>
-      </Dialog>
+      } />
     </>
   );
 }

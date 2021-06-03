@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import { Add, Menu } from '@material-ui/icons';
+import { GroupAdd, Menu } from '@material-ui/icons';
 import { useDashboard } from '../../Core/Hooks/useDashboard';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
       </AppBar>
 
       <main className="flex flex-column items-start pa3" style={{ gap: '1rem' }}>
-        <Button variant="contained" color="primary" startIcon={<Add />} onClick={() => setOneononeInsertDialog(true)}>New one-on-one</Button>
+        <Button variant="contained" color="primary" startIcon={<GroupAdd />} onClick={() => setOneononeInsertDialog(true)}>Register one-on-one</Button>
         {!!dashboard && <Dashboard dashboard={dashboard} />}
       </main>
 

@@ -1,11 +1,12 @@
 import React from 'react';
-import { AppBar, Button, Dialog, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Close, Delete } from '@material-ui/icons';
+import { Button, Divider, Grid, Typography } from '@material-ui/core';
+import { Close, DeleteForever } from '@material-ui/icons';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
+import { ActionDialog } from '../../Shared/ActionDialog';
 
 interface OneononeDeleteProps {
   open: boolean;
@@ -25,21 +26,11 @@ export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, o
 
   return (
     <>
-      <Dialog fullScreen open={open} onClose={onClose}>
-        <AppBar position="sticky">
-          <Toolbar variant="dense">
-            <IconButton onClick={onClose} edge="start">
-              <Close />
-            </IconButton>
-            <Typography variant="h6">
-              Cancel one-on-one
-            </Typography>
-          </Toolbar>
-        </AppBar>
+      <ActionDialog open={open} onClose={onClose} title={'Remove one-on-one'} Content={() =>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
-          <Grid container item xs={12} sm={12} md={6} lg={4} xl={3}>
+          <Grid container item xs={12}>
             {user.id !== oneonone.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
@@ -60,13 +51,15 @@ export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, o
             </Grid>
           </Grid>
 
-          <div className="flex mt2" style={{ gap: '1rem' }}>
+          <Divider />
+
+          <div className="flex mt2 justify-end" style={{ gap: '1rem' }}>
             <Button onClick={onClose} startIcon={<Close />}>Cancel</Button>
-            <Button variant="contained" color="primary" onClick={remove} startIcon={<Delete />}>Remove</Button>
+            <Button variant="contained" color="primary" onClick={remove} startIcon={<DeleteForever />}>Remove</Button>
           </div>
 
         </Grid>
-      </Dialog>
+      } />
     </>
   );
 }

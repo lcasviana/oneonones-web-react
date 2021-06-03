@@ -1,10 +1,11 @@
 import React from 'react';
-import { AppBar, Button, Dialog, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
-import { Close, Delete } from '@material-ui/icons';
+import { Button, Divider, Grid, Typography } from '@material-ui/core';
+import { Close, EventBusy } from '@material-ui/icons';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
+import { ActionDialog } from '../../Shared/ActionDialog';
 
 interface HistoricalDeleteProps {
   open: boolean;
@@ -15,6 +16,8 @@ interface HistoricalDeleteProps {
 export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClose, historical }: HistoricalDeleteProps) => {
   const user = AuthenticationRepository.user;
 
+  const occurrence = historical.occurrence ? new Date(historical.occurrence).toISOString().substr(0, 10) : null;
+
   const remove = () => {
     HistoricalsRepository.delete(historical.id)
       .then(() => alert('Deleted!'))
@@ -24,21 +27,11 @@ export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClos
 
   return (
     <>
-      <Dialog fullScreen open={open} onClose={onClose}>
-        <AppBar position="sticky">
-          <Toolbar variant="dense">
-            <IconButton onClick={onClose} edge="start">
-              <Close />
-            </IconButton>
-            <Typography variant="h6">
-              Cancel historical
-            </Typography>
-          </Toolbar>
-        </AppBar>
+      <ActionDialog open={open} onClose={onClose} title={'Remove occurrence'} Content={() =>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
-          <Grid container item xs={12} sm={12} md={6} lg={4} xl={3}>
+          <Grid container item xs={12}>
             {user.id !== historical.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
@@ -55,17 +48,19 @@ export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClos
 
             <Grid item xs={12} sm={6}>
               <Typography variant="caption" color="textSecondary">Occurrence</Typography>
-              <Typography variant="body1">{historical.occurrence.toISOString().substr(0, 10)}</Typography>
+              <Typography variant="body1">{occurrence}</Typography>
             </Grid>
           </Grid>
 
-          <div className="flex mt2" style={{ gap: '1rem' }}>
+          <Divider />
+
+          <div className="flex mt2 justify-end" style={{ gap: '1rem' }}>
             <Button onClick={onClose} startIcon={<Close />} size="small">Cancel</Button>
-            <Button variant="contained" color="primary" onClick={remove} startIcon={<Delete />}>Remove</Button>
+            <Button variant="contained" color="primary" onClick={remove} startIcon={<EventBusy />}>Remove</Button>
           </div>
 
         </Grid>
-      </Dialog>
+      } />
     </>
   );
 }

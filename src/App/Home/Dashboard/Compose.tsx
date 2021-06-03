@@ -3,7 +3,7 @@ import { Grid, Card, Typography, Divider, Button } from '@material-ui/core';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ComposeModel } from '../../../Common/Models/Dashboard/ComposeModel';
 import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';
-import { Add, Delete, History, Update } from '@material-ui/icons';
+import { EventAvailable, History, Event, DeleteForever } from '@material-ui/icons';
 import { OneononeDelete } from '../Oneonone/OneononeDelete';
 import { OneononeUpdate } from '../Oneonone/OneononeUpdate';
 import { HistoricalInsert } from '../Historical/HistoricalInsert';
@@ -25,7 +25,7 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
 
   return (
     <>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
         <Card className="flex flex-column pa2" style={{ gap: '0.25rem' }}>
 
           {user.id !== compose.oneonone.leader.id &&
@@ -72,11 +72,11 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
 
           <Divider style={{ margin: '0.5rem 0' }} />
 
-          <div className="flex flex-wrap" style={{ gap: '1rem' }}>
-            <Button onClick={() => setHistoricalInsertDialog(true)} variant="contained" color="primary" startIcon={<Add />} size="small">Register</Button>
+          <div className="flex flex-wrap justify-end" style={{ gap: '1rem' }}>
+            <Button onClick={() => setHistoricalInsertDialog(true)} variant="contained" color="primary" startIcon={<EventAvailable />} size="small">Register</Button>
             <Button onClick={() => setHistoricalObtainDialog(true)} startIcon={<History />} size="small">Historical</Button>
-            <Button onClick={() => setOneononeUpdateDialog(true)} startIcon={<Update />} size="small">Frequency</Button>
-            <Button onClick={() => setOneononeDeleteDialog(true)} startIcon={<Delete />} size="small">Cancel</Button>
+            <Button onClick={() => setOneononeUpdateDialog(true)} startIcon={<Event />} size="small">Frequency</Button>
+            <Button onClick={() => setOneononeDeleteDialog(true)} startIcon={<DeleteForever />} size="small">Remove</Button>
           </div>
 
         </Card>
