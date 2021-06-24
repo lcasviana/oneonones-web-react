@@ -15,4 +15,14 @@ export class EmployeesRepository {
           : Promise.reject({ errors: [err.message] } as ErrorModel)
       );
   }
+
+  public static async obtainByEmail(email: string): Promise<EmployeeModel> {
+    return axios.get<EmployeeModel>(`${EmployeesRepository.baseUrl}?email=${email}`)
+      .then(({ data }: AxiosResponse<EmployeeModel>) => Promise.resolve(data))
+      .catch((err: Error | AxiosError<ErrorModel>) =>
+        axios.isAxiosError(err)
+          ? Promise.reject(err?.response?.data)
+          : Promise.reject({ errors: [err.message] } as ErrorModel)
+      );
+  }
 }

@@ -6,4 +6,8 @@ export class AuthenticationRepository {
     email: 'lucas.viana@dtidigital.com.br',
     name: 'Lucas Viana',
   };
+
+  public static get isAuthenticated() {
+    return AuthenticationRepository.user !== null;
+  }
 }
