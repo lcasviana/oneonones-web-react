@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, TextField } from '@material-ui/core';
-import { ArrowForward } from '@material-ui/icons';
+import { Card, TextField } from '@material-ui/core';
 
 export const Login: React.FC = () => {
   const [username, setUsername] = useState<string | null>(null);
