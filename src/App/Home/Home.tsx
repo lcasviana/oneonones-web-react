@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, ListItem, List, ListItemIcon, ListItemText } from '@material-ui/core';
 import { DashboardOutlined, GroupAdd, HomeOutlined, Menu } from '@material-ui/icons';
-import { useDashboard } from '../../Core/Hooks/useDashboard';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
 import { AuthenticationRepository } from '../../Core/Repositories/AuthenticationRepository';
+import { getDashboard } from '../../Core/Redux/Effects';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../../Core/Redux/Store';
 
 export const Home: React.FC = () => {
-  const dashboard = useDashboard(AuthenticationRepository.user.id);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDashboard(AuthenticationRepository.user.id));
+  }, [dispatch]);
+  const dashboard = useSelector((state: AppState) => state.dashboard);
+
   const [drawer, setDrawer] = useState(false);
   const [oneononeInsertDialog, setOneononeInsertDialog] = useState(false);
 
