@@ -8,6 +8,8 @@ import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Core/Redux/Effects';
 
 interface OneononeUpdateProps {
   open: boolean;
@@ -16,6 +18,7 @@ interface OneononeUpdateProps {
 }
 
 export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, oneonone }: OneononeUpdateProps) => {
+  const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
 
@@ -29,7 +32,10 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
       ...oneonone,
       frequency,
     })
-      .then(_ => alert('Updated!'))
+      .then(_ => {
+        dispatch(getDashboard(user.id));
+        alert('Updated!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };

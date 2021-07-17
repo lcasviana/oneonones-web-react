@@ -6,6 +6,8 @@ import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRep
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Core/Redux/Effects';
 
 interface HistoricalUpdateProps {
   open: boolean;
@@ -14,7 +16,9 @@ interface HistoricalUpdateProps {
 }
 
 export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClose, historical }: HistoricalUpdateProps) => {
+  const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
+
   const [commentary, setCommentary] = useState<string | null>(null);
 
   const occurrence = historical.occurrence ? new Date(historical.occurrence).toISOString().substr(0, 10) : null;
@@ -24,7 +28,10 @@ export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClos
       ...historical,
       commentary,
     })
-      .then(() => alert('Updated!'))
+      .then(() => {
+        dispatch(getDashboard(user.id));
+        alert('Updated!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };

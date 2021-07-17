@@ -9,6 +9,8 @@ import { OneononesRepository } from '../../../Core/Repositories/OneononesReposit
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Core/Redux/Effects';
 
 interface OneononeInsertProps {
   open: boolean;
@@ -16,6 +18,9 @@ interface OneononeInsertProps {
 }
 
 export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }: OneononeInsertProps) => {
+  const dispatch = useDispatch();
+  const user = AuthenticationRepository.user;
+
   const employees = useEmployeeAll();
   const [person, setPerson] = useState<EmployeeModel | null>(null);
   const [leader, setLeader] = useState<boolean | null>(null);
@@ -32,7 +37,10 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
       ledId: leader ? AuthenticationRepository.user.id : person.id,
       frequency,
     })
-      .then(_ => alert('Created!'))
+      .then(_ => {
+        dispatch(getDashboard(user.id));
+        alert('Created!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };

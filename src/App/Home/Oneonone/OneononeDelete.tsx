@@ -7,6 +7,8 @@ import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Core/Redux/Effects';
 
 interface OneononeDeleteProps {
   open: boolean;
@@ -15,11 +17,15 @@ interface OneononeDeleteProps {
 }
 
 export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, oneonone }: OneononeDeleteProps) => {
+  const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
 
   const remove = () => {
     OneononesRepository.delete(oneonone.id)
-      .then(_ => alert('Deleted!'))
+      .then(_ => {
+        dispatch(getDashboard(user.id));
+        alert('Deleted!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(onClose);
   };

@@ -6,6 +6,8 @@ import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalMod
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { useDispatch } from 'react-redux';
+import { getDashboard } from '../../../Core/Redux/Effects';
 
 interface HistoricalDeleteProps {
   open: boolean;
@@ -14,13 +16,17 @@ interface HistoricalDeleteProps {
 }
 
 export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClose, historical }: HistoricalDeleteProps) => {
+  const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
 
   const occurrence = historical.occurrence ? new Date(historical.occurrence).toISOString().substr(0, 10) : null;
 
   const remove = () => {
     HistoricalsRepository.delete(historical.id)
-      .then(() => alert('Deleted!'))
+      .then(() => {
+        dispatch(getDashboard(user.id));
+        alert('Deleted!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(onClose);
   };

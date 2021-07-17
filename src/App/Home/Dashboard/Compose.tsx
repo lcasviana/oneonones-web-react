@@ -42,7 +42,7 @@ export const Compose: React.FC<ComposeProps> = ({ user, compose }: ComposeProps)
             </Grid>
           }
 
-          {!!compose.status && <Grid container>
+          {!!compose.status && compose.oneonone.frequency !== FrequencyEnum.Occasionally && <Grid container>
             <Grid item xs={12} sm={6}>
               <Typography variant="caption" color="textSecondary">Next Occurrence</Typography>
               <Typography variant="h5" className={compose.status.isLate ? 'strike' : ''}>

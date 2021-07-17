@@ -1,9 +1,11 @@
 import { Typography, Grid, Button, TextField, Divider } from '@material-ui/core';
 import { Close, EventAvailable } from '@material-ui/icons';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
+import { getDashboard } from '../../../Core/Redux/Effects';
 import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
@@ -15,7 +17,9 @@ interface HistoricalInsertProps {
 }
 
 export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClose, oneonone }: HistoricalInsertProps) => {
+  const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
+
   const [occurrence, setOccurrence] = useState<Date | null>(null);
   const [commentary, setCommentary] = useState<string | null>(null);
 
@@ -31,7 +35,10 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
       occurrence,
       commentary,
     })
-      .then(_ => alert('Created!'))
+      .then(_ => {
+        dispatch(getDashboard(user.id));
+        alert('Created!');
+      })
       .catch((e: ErrorModel) => alert(e.errors[0]))
       .finally(close);
   };
