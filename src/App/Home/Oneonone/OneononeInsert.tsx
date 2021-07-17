@@ -58,7 +58,7 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
 
   return (
     <>
-      <ActionDialog open={open} onClose={close} title={'Register one-on-one'} Content={() =>
+      <ActionDialog open={open} onClose={close} title={'Register one-on-one'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -102,7 +102,7 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

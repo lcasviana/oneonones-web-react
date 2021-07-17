@@ -33,7 +33,7 @@ export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClos
 
   return (
     <>
-      <ActionDialog open={open} onClose={onClose} title={'Remove occurrence'} Content={() =>
+      <ActionDialog open={open} onClose={onClose} title={'Remove occurrence'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -66,7 +66,7 @@ export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClos
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

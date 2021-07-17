@@ -32,7 +32,7 @@ export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, o
 
   return (
     <>
-      <ActionDialog open={open} onClose={onClose} title={'Remove one-on-one'} Content={() =>
+      <ActionDialog open={open} onClose={onClose} title={'Remove one-on-one'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -65,7 +65,7 @@ export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, o
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

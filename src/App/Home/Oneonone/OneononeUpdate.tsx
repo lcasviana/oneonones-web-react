@@ -51,7 +51,7 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
 
   return (
     <>
-      <ActionDialog open={open} onClose={close} title={'Update frequency'} Content={() =>
+      <ActionDialog open={open} onClose={close} title={'Update frequency'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -95,7 +95,7 @@ export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, o
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

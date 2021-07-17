@@ -16,6 +16,22 @@ interface HistoricalInsertProps {
   oneonone: OneononeModel;
 }
 
+const HistoricalInsertForm = ({ occurrence, setOccurrence, commentary, setCommentary }: any) => (
+  <>
+    <Grid item xs={12}>
+      <Typography variant="caption" color="textSecondary">When was yours meeting?</Typography>
+      <TextField className="w-100" type="date" variant="outlined" size="small"
+        value={occurrence?.toISOString().substr(0, 10)}
+        onChange={(event) => setOccurrence(event.target.value ? new Date(event.target.value) : null)} />
+    </Grid>
+
+    <Grid item xs={12}>
+      <Typography variant="caption" color="textSecondary">Leave a commentary!</Typography>
+      <TextField className="w-100" type="text" variant="outlined" value={commentary} onChange={(event) => setCommentary(event.target.value)} />
+    </Grid>
+  </>
+);
+
 export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClose, oneonone }: HistoricalInsertProps) => {
   const dispatch = useDispatch();
   const user = AuthenticationRepository.user;
@@ -55,7 +71,7 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
 
   return (
     <>
-      <ActionDialog open={open} onClose={onClose} title={'Register occurrence'} Content={() =>
+      <ActionDialog open={open} onClose={onClose} title={'Register occurrence'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -82,17 +98,7 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
 
           <Divider />
 
-          <Grid item xs={12}>
-            <Typography variant="caption" color="textSecondary">When was yours meeting?</Typography>
-            <TextField className="w-100" type="date" variant="outlined" size="small"
-              value={occurrence?.toISOString().substr(0, 10)}
-              onChange={(event) => setOccurrence(event.target.value ? new Date(event.target.value) : null)} />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography variant="caption" color="textSecondary">Leave a commentary!</Typography>
-            <TextField className="w-100" type="text" variant="outlined" value={commentary} onChange={(event) => setCommentary(event.target.value)} />
-          </Grid>
+          <HistoricalInsertForm occurrence={occurrence} setOccurrence={setOccurrence} commentary={commentary} setCommentary={setCommentary} />
 
           <div className="flex mt2 justify-end" style={{ gap: '1rem' }}>
             <Button onClick={close} startIcon={<Close />}>Cancel</Button>
@@ -100,7 +106,7 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

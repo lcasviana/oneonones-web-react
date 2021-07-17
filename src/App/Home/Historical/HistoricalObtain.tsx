@@ -19,7 +19,7 @@ export const HistoricalObtain: React.FC<HistoricalObtainProps> = ({ open, onClos
 
   return (
     <>
-      <ScreenDialog open={open} onClose={onClose} title={'Historical'} Content={() =>
+      <ScreenDialog open={open} onClose={onClose} title={'Historical'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -60,7 +60,7 @@ export const HistoricalObtain: React.FC<HistoricalObtainProps> = ({ open, onClos
           </Grid>
 
         </Grid>
-      } />
+      </ScreenDialog>
     </>
   );
 };

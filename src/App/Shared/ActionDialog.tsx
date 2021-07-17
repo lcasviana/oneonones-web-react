@@ -6,10 +6,10 @@ export interface ActionDialogProps {
   open: boolean;
   onClose: () => void;
   title: string;
-  Content: React.FC<any>;
+  children: React.ReactNode;
 }
 
-export const ActionDialog: React.FC<ActionDialogProps> = ({ open, onClose, title, Content }: ActionDialogProps) => {
+export const ActionDialog: React.FC<ActionDialogProps> = ({ children, open, onClose, title }: ActionDialogProps) => {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
@@ -24,7 +24,7 @@ export const ActionDialog: React.FC<ActionDialogProps> = ({ open, onClose, title
           </Toolbar>
         </AppBar>
         <section style={{ maxHeight: '80vh', maxWidth: '80vw', width: 600 }}>
-          <Content />
+          {children}
         </section>
       </Dialog>
     </>

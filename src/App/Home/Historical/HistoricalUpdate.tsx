@@ -47,7 +47,7 @@ export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClos
 
   return (
     <>
-      <ActionDialog open={open} onClose={onClose} title={'Update commentary'} Content={() =>
+      <ActionDialog open={open} onClose={onClose} title={'Update commentary'}>
 
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
@@ -85,7 +85,7 @@ export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClos
           </div>
 
         </Grid>
-      } />
+      </ActionDialog>
     </>
   );
 }

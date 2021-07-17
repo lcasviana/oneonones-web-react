@@ -6,10 +6,10 @@ export interface ScreenDialogProps {
   open: boolean;
   onClose: () => void;
   title: string;
-  Content: React.FC<any>;
+  children: React.ReactNode;
 }
 
-export const ScreenDialog: React.FC<ScreenDialogProps> = ({ open, onClose, title, Content }: ScreenDialogProps) => {
+export const ScreenDialog: React.FC<ScreenDialogProps> = ({ children, open, onClose, title }: ScreenDialogProps) => {
   return (
     <>
       <Dialog fullScreen open={open} onClose={onClose}>
@@ -23,7 +23,7 @@ export const ScreenDialog: React.FC<ScreenDialogProps> = ({ open, onClose, title
             </Typography>
           </Toolbar>
         </AppBar>
-        <Content />
+        {children}
       </Dialog>
     </>
   );
