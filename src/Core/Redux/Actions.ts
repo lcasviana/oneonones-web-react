@@ -1,5 +1,11 @@
 import { DashboardModel } from '../../Common/Models/Dashboard/DashboardModel';
-import { ActionTypes, GetDashboardActionType, GetDashboardsActionType } from './Types';
+import { UserModel } from '../../Common/Models/UserModel';
+import { ActionTypes, GetDashboardActionType, GetDashboardsActionType, GetUserActionType } from './Types';
+
+export const getUser = (user: UserModel): GetUserActionType => ({
+  type: ActionTypes.GetUser,
+  payload: user,
+});
 
 export const getDashboardsAction = (dashboards: DashboardModel[]): GetDashboardsActionType => ({
   type: ActionTypes.GetDashboards,

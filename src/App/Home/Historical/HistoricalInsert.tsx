@@ -1,12 +1,12 @@
 import { Typography, Grid, Button, TextField, Divider } from '@material-ui/core';
 import { Close, EventAvailable } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { getDashboard } from '../../../Core/Redux/Effects';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
+import { AppState } from '../../../Core/Redux/Store';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
 
@@ -34,7 +34,7 @@ const HistoricalInsertForm = ({ occurrence, setOccurrence, commentary, setCommen
 
 export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClose, oneonone }: HistoricalInsertProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
   const [occurrence, setOccurrence] = useState<Date | null>(null);
   const [commentary, setCommentary] = useState<string | null>(null);

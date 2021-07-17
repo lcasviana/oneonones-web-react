@@ -8,6 +8,11 @@ const initialState: StateType = {
 
 export const Reducer = (state: StateType = initialState, action: ActionType): StateType => {
   switch (action.type) {
+    case ActionTypes.GetUser:
+      return {
+        ...state,
+        user: action.payload,
+      };
     case ActionTypes.GetDashboards:
       return {
         ...state,

@@ -5,10 +5,12 @@ import { Home } from './Home/Home';
 import { Login } from './Login/Login';
 import { PublicRoute } from '../Core/Routes/PublicRoute';
 import { Dashboads } from './Dashboards/Dashboards';
-import { AuthenticationRepository } from '../Core/Repositories/AuthenticationRepository';
+import { useSelector } from 'react-redux';
+import { AppState } from '../Core/Redux/Store';
 
 export const App: React.FC = () => {
-  const isAuthenticated = AuthenticationRepository.isAuthenticated;
+  const user = useSelector((state: AppState) => state.user);
+  const isAuthenticated = !!user;
   return (
     <>
       <BrowserRouter>

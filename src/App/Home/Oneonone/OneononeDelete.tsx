@@ -4,11 +4,11 @@ import { Close, DeleteForever } from '@material-ui/icons';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ActionDialog } from '../../Shared/ActionDialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Core/Redux/Effects';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface OneononeDeleteProps {
   open: boolean;
@@ -18,7 +18,7 @@ interface OneononeDeleteProps {
 
 export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, oneonone }: OneononeDeleteProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
   const remove = () => {
     OneononesRepository.delete(oneonone.id)

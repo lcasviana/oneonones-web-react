@@ -6,10 +6,10 @@ import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Core/Redux/Effects';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface OneononeUpdateProps {
   open: boolean;
@@ -19,7 +19,7 @@ interface OneononeUpdateProps {
 
 export const OneononeUpdate: React.FC<OneononeUpdateProps> = ({ open, onClose, oneonone }: OneononeUpdateProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
 
   const update = () => {

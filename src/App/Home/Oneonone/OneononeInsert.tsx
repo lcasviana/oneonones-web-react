@@ -6,11 +6,11 @@ import { useEmployeeAll } from '../../../Core/Hooks/useEmployee';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { ActionDialog } from '../../Shared/ActionDialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Core/Redux/Effects';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface OneononeInsertProps {
   open: boolean;
@@ -19,9 +19,9 @@ interface OneononeInsertProps {
 
 export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }: OneononeInsertProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
-  const employees = useEmployeeAll();
+  const employees = useEmployeeAll(user);
   const [person, setPerson] = useState<EmployeeModel | null>(null);
   const [leader, setLeader] = useState<boolean | null>(null);
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
@@ -33,8 +33,8 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
     }
 
     OneononesRepository.insert({
-      leaderId: leader ? person.id : AuthenticationRepository.user.id,
-      ledId: leader ? AuthenticationRepository.user.id : person.id,
+      leaderId: leader ? person.id : user.id,
+      ledId: leader ? user.id : person.id,
       frequency,
     })
       .then(_ => {

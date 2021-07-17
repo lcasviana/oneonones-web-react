@@ -4,10 +4,10 @@ import { Close, RateReview } from '@material-ui/icons';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Core/Redux/Effects';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface HistoricalUpdateProps {
   open: boolean;
@@ -17,7 +17,7 @@ interface HistoricalUpdateProps {
 
 export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClose, historical }: HistoricalUpdateProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
   const [commentary, setCommentary] = useState<string | null>(null);
 

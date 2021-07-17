@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import { GroupAdd } from '@material-ui/icons';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
-import { AuthenticationRepository } from '../../Core/Repositories/AuthenticationRepository';
 import { getDashboard } from '../../Core/Redux/Effects';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../Core/Redux/Store';
@@ -11,9 +10,10 @@ import { Shell } from '../Shared/Shell';
 
 export const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: AppState) => state.user)!;
   useEffect(() => {
-    dispatch(getDashboard(AuthenticationRepository.user.id));
-  }, [dispatch]);
+    dispatch(getDashboard(user.id));
+  }, [dispatch, user]);
   const dashboard = useSelector((state: AppState) => state.dashboard);
 
   const [oneononeInsertDialog, setOneononeInsertDialog] = useState(false);

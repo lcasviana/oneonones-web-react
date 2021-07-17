@@ -2,10 +2,11 @@ import React from 'react';
 import { Divider, Grid, Typography } from '@material-ui/core';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { HistoricalOccurrence } from './HistoricalOccurrence';
 import { ScreenDialog } from '../../Shared/ScreenDialog';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface HistoricalObtainProps {
   open: boolean;
@@ -15,7 +16,7 @@ interface HistoricalObtainProps {
 }
 
 export const HistoricalObtain: React.FC<HistoricalObtainProps> = ({ open, onClose, oneonone, historical }: HistoricalObtainProps) => {
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
   return (
     <>

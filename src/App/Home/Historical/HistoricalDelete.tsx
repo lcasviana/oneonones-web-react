@@ -4,10 +4,10 @@ import { Close, EventBusy } from '@material-ui/icons';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
-import { AuthenticationRepository } from '../../../Core/Repositories/AuthenticationRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getDashboard } from '../../../Core/Redux/Effects';
+import { AppState } from '../../../Core/Redux/Store';
 
 interface HistoricalDeleteProps {
   open: boolean;
@@ -17,7 +17,7 @@ interface HistoricalDeleteProps {
 
 export const HistoricalDelete: React.FC<HistoricalDeleteProps> = ({ open, onClose, historical }: HistoricalDeleteProps) => {
   const dispatch = useDispatch();
-  const user = AuthenticationRepository.user;
+  const user = useSelector((state: AppState) => state.user)!;
 
   const occurrence = historical.occurrence ? new Date(historical.occurrence).toISOString().substr(0, 10) : null;
 

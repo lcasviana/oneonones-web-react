@@ -1,9 +1,15 @@
 import { DashboardModel } from '../../Common/Models/Dashboard/DashboardModel';
-import { EmployeeModel } from '../../Common/Models/Employee/EmployeeModel';
+import { UserModel } from '../../Common/Models/UserModel';
 
 export enum ActionTypes {
+  GetUser,
   GetDashboards,
   GetDashboard,
+}
+
+export type GetUserActionType = {
+  type: ActionTypes.GetUser;
+  payload: UserModel;
 }
 
 export type GetDashboardsActionType = {
@@ -16,10 +22,10 @@ export type GetDashboardActionType = {
   payload: DashboardModel;
 };
 
-export type ActionType = GetDashboardsActionType | GetDashboardActionType;
+export type ActionType = GetUserActionType | GetDashboardsActionType | GetDashboardActionType;
 
 export type StateType = {
-  user: EmployeeModel | undefined;
+  user: UserModel | undefined;
   dashboard: DashboardModel | undefined;
   dashboards: DashboardModel[] | undefined;
 };
