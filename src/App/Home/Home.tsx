@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, ListItem, List, ListItemIcon, ListItemText } from '@material-ui/core';
-import { DashboardOutlined, GroupAdd, HomeOutlined, Menu } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import { GroupAdd } from '@material-ui/icons';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
 import { AuthenticationRepository } from '../../Core/Repositories/AuthenticationRepository';
 import { getDashboard } from '../../Core/Redux/Effects';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../Core/Redux/Store';
+import { Shell } from '../Shared/Shell';
 
 export const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,37 +16,11 @@ export const Home: React.FC = () => {
   }, [dispatch]);
   const dashboard = useSelector((state: AppState) => state.dashboard);
 
-  const [drawer, setDrawer] = useState(false);
   const [oneononeInsertDialog, setOneononeInsertDialog] = useState(false);
 
   return (
     <>
-      <AppBar position="sticky">
-        <Toolbar variant="dense">
-          <IconButton onClick={() => setDrawer(true)} edge="start">
-            <Menu />
-          </IconButton>
-          <Typography variant="h6">
-            One-on-one's
-          </Typography>
-        </Toolbar>
-        <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
-          <List style={{ width: 250 }}>
-            <ListItem button>
-              <ListItemIcon>
-                <HomeOutlined />
-              </ListItemIcon>
-              <ListItemText primary={'Home'} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <DashboardOutlined />
-              </ListItemIcon>
-              <ListItemText primary={'Dashboards'} />
-            </ListItem>
-          </List>
-        </Drawer>
-      </AppBar>
+      <Shell title={'One-on-one\'s'} />
 
       <main className="flex flex-column items-start pa3" style={{ gap: '1rem' }}>
         <Button variant="contained" color="primary" startIcon={<GroupAdd />} onClick={() => setOneononeInsertDialog(true)}>Register one-on-one</Button>
