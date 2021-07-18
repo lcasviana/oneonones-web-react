@@ -2,14 +2,19 @@ import { DashboardModel } from '../../Common/Models/Dashboard/DashboardModel';
 import { UserModel } from '../../Common/Models/UserModel';
 
 export enum ActionTypes {
-  GetUser,
+  Login,
+  Logout,
   GetDashboards,
   GetDashboard,
 }
 
-export type GetUserActionType = {
-  type: ActionTypes.GetUser;
+export type LoginActionType = {
+  type: ActionTypes.Login;
   payload: UserModel;
+}
+
+export type LogoutActionType = {
+  type: ActionTypes.Logout;
 }
 
 export type GetDashboardsActionType = {
@@ -22,7 +27,7 @@ export type GetDashboardActionType = {
   payload: DashboardModel;
 };
 
-export type ActionType = GetUserActionType | GetDashboardsActionType | GetDashboardActionType;
+export type ActionType = LoginActionType | LogoutActionType | GetDashboardsActionType | GetDashboardActionType;
 
 export type StateType = {
   user: UserModel | undefined;

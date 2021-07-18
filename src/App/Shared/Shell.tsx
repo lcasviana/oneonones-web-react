@@ -1,17 +1,28 @@
 import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { HomeOutlined, DashboardOutlined, Menu } from '@material-ui/icons';
+import { HomeOutlined, DashboardOutlined, Menu, KeyboardReturn } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { logoutAction } from '../../Core/Redux/Actions';
 
 type ShellProps = {
   title: string;
 };
 
 export const Shell: React.FC<ShellProps> = ({ title }) => {
+  const dispatch = useDispatch();
   const [drawer, setDrawer] = useState(false);
+  const [redirect, setRedirect] = useState<boolean>(false);
+
+  const logout = () => {
+    dispatch(logoutAction());
+    setRedirect(true);
+  };
 
   return (
     <>
+      {redirect && <Redirect to={{ pathname: '/login' }} />}
+
       <AppBar position="sticky">
         <Toolbar variant="dense">
           <IconButton onClick={() => setDrawer(true)} edge="start">
@@ -22,7 +33,7 @@ export const Shell: React.FC<ShellProps> = ({ title }) => {
           </Typography>
         </Toolbar>
         <Drawer anchor={'left'} open={drawer} onClose={() => setDrawer(false)}>
-          <List style={{ width: 250 }}>
+          <List className="flex flex-column h-100" style={{ width: 250 }}>
             <ListItem button component={Link} to="/">
               <ListItemIcon>
                 <HomeOutlined />
@@ -34,6 +45,13 @@ export const Shell: React.FC<ShellProps> = ({ title }) => {
                 <DashboardOutlined />
               </ListItemIcon>
               <ListItemText primary={'Dashboards'} />
+            </ListItem>
+            <ListItem style={{ flexGrow: 1 }}></ListItem>
+            <ListItem button onClick={logout}>
+              <ListItemIcon>
+                <KeyboardReturn />
+              </ListItemIcon>
+              <ListItemText primary={'Logout'} />
             </ListItem>
           </List>
         </Drawer>

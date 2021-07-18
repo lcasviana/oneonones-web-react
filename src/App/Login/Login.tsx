@@ -5,7 +5,7 @@ import { AuthenticationRepository } from '../../Core/Repositories/Authentication
 import { UserModel } from '../../Common/Models/UserModel';
 import { useDispatch } from 'react-redux';
 import { ErrorModel } from '../../Common/Models/ErrorModel';
-import { getUser } from '../../Core/Redux/Actions';
+import { loginAction } from '../../Core/Redux/Actions';
 import { Redirect } from 'react-router-dom';
 
 
@@ -23,7 +23,7 @@ export const Login: React.FC = () => {
 
     AuthenticationRepository.login({ email, password })
       .then((user: UserModel) => {
-        dispatch(getUser(user));
+        dispatch(loginAction(user));
         setRedirect(true);
       })
       .catch((e: ErrorModel) => alert(e.errors[0]));
