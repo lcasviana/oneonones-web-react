@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Card, Grid, TextField, Typography } from '@material-ui/core';
-import { ExitToApp } from '@material-ui/icons';
+import { Button, Card, Grid, TextField, Typography } from '@mui/material';
+import { ExitToApp } from '@mui/icons-material';
 import { AuthenticationRepository } from '../../Core/Repositories/AuthenticationRepository';
 import { UserModel } from '../../Common/Models/UserModel';
 import { useDispatch } from 'react-redux';
 import { ErrorModel } from '../../Common/Models/ErrorModel';
 import { loginAction } from '../../Core/Redux/Actions';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 
 export const Login: React.FC = () => {
@@ -31,7 +31,7 @@ export const Login: React.FC = () => {
 
   return (
     <>
-      {redirect && <Redirect to={{ pathname: '/' }} />}
+      {redirect && <Navigate to={{ pathname: '/' }} />}
 
       <main className="flex justify-center items-center vw-100 vh-100">
         <Card className="pa3 flex flex-column" style={{ maxWidth: '80vw', width: 420, gap: '0.5rem' }}>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Divider, Grid, Typography } from '@material-ui/core';
-import { Close, DeleteForever } from '@material-ui/icons';
+import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Close, DeleteForever } from '@mui/icons-material';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';

@@ -1,16 +1,16 @@
-import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
-import { teal } from '@material-ui/core/colors';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { teal } from '@mui/material/colors';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
 import { App } from './App/App';
 import store from './Core/Redux/Store';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: teal[600],
     },
-    type: 'dark',
+    mode: 'dark',
   },
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dialog, AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
+import { Dialog, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 export interface ActionDialogProps {
   open: boolean;

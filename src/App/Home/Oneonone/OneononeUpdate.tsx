@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Divider, Grid, TextField, Typography } from '@material-ui/core';
-import { Close, Event } from '@material-ui/icons';
-import { Autocomplete } from '@material-ui/lab';
+import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
+import { Close, Event } from '@mui/icons-material';
+import { Autocomplete } from '@mui/lab';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { OneononesRepository } from '../../../Core/Repositories/OneononesRepository';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Card, Typography, Divider, Button } from '@material-ui/core';
+import { Grid, Card, Typography, Divider, Button } from '@mui/material';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ComposeModel } from '../../../Common/Models/Dashboard/ComposeModel';
 import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';
-import { EventAvailable, History, Event, DeleteForever } from '@material-ui/icons';
+import { EventAvailable, History, Event, DeleteForever } from '@mui/icons-material';
 import { OneononeDelete } from '../Oneonone/OneononeDelete';
 import { OneononeUpdate } from '../Oneonone/OneononeUpdate';
 import { HistoricalInsert } from '../Historical/HistoricalInsert';

@@ -8,4 +8,5 @@ const store = createStore(
 );
 
 export type AppState = ReturnType<typeof Reducer>;
+export type AppDispatch = typeof store.dispatch;
 export default store;

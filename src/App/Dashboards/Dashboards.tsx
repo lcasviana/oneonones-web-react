@@ -1,15 +1,16 @@
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getDashboards } from '../../Core/Redux/Effects';
 import { AppState } from '../../Core/Redux/Store';
 import { Shell } from '../Shared/Shell';
 import { ComposeModel } from '../../Common/Models/Dashboard/ComposeModel';
 import { FrequencyEnum } from '../../Common/Enumerations/FrequencyEnum';
-import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useAppDispatch } from '../../Core/Redux/Hooks';
 
 export const Dashboads: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getDashboards());
   }, [dispatch]);

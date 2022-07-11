@@ -1,5 +1,5 @@
-import { Button, Typography, useMediaQuery, useTheme } from '@material-ui/core';
-import { EventBusy, RateReview } from '@material-ui/icons';
+import { Button, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { EventBusy, RateReview } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { HistoricalDelete } from './HistoricalDelete';

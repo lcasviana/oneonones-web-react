@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes } from 'react-router-dom';
 import { PrivateRoute } from '../Core/Routes/PrivateRoute';
 import { Home } from './Home/Home';
 import { Login } from './Login/Login';
@@ -14,12 +14,12 @@ export const App: React.FC = () => {
   return (
     <>
       <BrowserRouter>
-        <Switch>
+        <Routes>
           <PrivateRoute exact path="/" component={Home} isAuthenticated={isAuthenticated} />
           <PrivateRoute exact path="/dashboards" component={Dashboads} isAuthenticated={isAuthenticated} />
           <PublicRoute exact path="/login" component={Login} isAuthenticated={isAuthenticated} />
-          <Redirect to="/" />
-        </Switch>
+          <Navigate to="/" />
+        </Routes>
       </BrowserRouter>
     </>
   );

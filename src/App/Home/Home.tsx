@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@material-ui/core';
-import { GroupAdd } from '@material-ui/icons';
+import { Button } from '@mui/material';
+import { GroupAdd } from '@mui/icons-material';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
 import { getDashboard } from '../../Core/Redux/Effects';

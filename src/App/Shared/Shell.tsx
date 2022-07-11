@@ -1,8 +1,8 @@
-import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { HomeOutlined, DashboardOutlined, Menu, KeyboardReturn } from '@material-ui/icons';
+import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { HomeOutlined, DashboardOutlined, Menu, KeyboardReturn } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { logoutAction } from '../../Core/Redux/Actions';
 
 type ShellProps = {
@@ -21,7 +21,7 @@ export const Shell: React.FC<ShellProps> = ({ title }) => {
 
   return (
     <>
-      {redirect && <Redirect to={{ pathname: '/login' }} />}
+      {redirect && <Navigate to={{ pathname: '/login' }} />}
 
       <AppBar position="sticky">
         <Toolbar variant="dense">

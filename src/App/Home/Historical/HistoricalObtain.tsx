@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Grid, Typography } from '@material-ui/core';
+import { Divider, Grid, Typography } from '@mui/material';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';

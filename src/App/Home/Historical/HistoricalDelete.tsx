@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Divider, Grid, Typography } from '@material-ui/core';
-import { Close, EventBusy } from '@material-ui/icons';
+import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Close, EventBusy } from '@mui/icons-material';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';

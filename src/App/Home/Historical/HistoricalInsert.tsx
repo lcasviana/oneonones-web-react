@@ -1,5 +1,5 @@
-import { Typography, Grid, Button, TextField, Divider } from '@material-ui/core';
-import { Close, EventAvailable } from '@material-ui/icons';
+import { Typography, Grid, Button, TextField, Divider } from '@mui/material';
+import { Close, EventAvailable } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';

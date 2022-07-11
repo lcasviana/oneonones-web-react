@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
-import { GroupAdd, Close } from '@material-ui/icons';
-import { Autocomplete } from '@material-ui/lab';
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import { GroupAdd, Close } from '@mui/icons-material';
+import { Autocomplete } from '@mui/lab';
 import { useEmployeeAll } from '../../../Core/Hooks/useEmployee';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { EmployeeModel } from '../../../Common/Models/Employee/EmployeeModel';

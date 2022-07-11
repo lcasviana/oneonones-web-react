@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Divider, Grid, TextField, Typography } from '@material-ui/core';
-import { Close, RateReview } from '@material-ui/icons';
+import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
+import { Close, RateReview } from '@mui/icons-material';
 import { HistoricalModel } from '../../../Common/Models/Historical/HistoricalModel';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
