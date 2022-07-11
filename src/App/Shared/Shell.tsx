@@ -1,21 +1,21 @@
 import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { HomeOutlined, DashboardOutlined, Menu, KeyboardReturn } from '@mui/icons-material';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
-import { logoutAction } from '../../Core/Redux/Actions';
+import { useAppDispatch } from '../../Core/Redux/Hooks';
+import { logout } from '../../Core/Redux/UserSlice';
 
 type ShellProps = {
   title: string;
 };
 
 export const Shell: React.FC<ShellProps> = ({ title }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [drawer, setDrawer] = useState(false);
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  const logout = () => {
-    dispatch(logoutAction());
+  const logoutActions = () => {
+    dispatch(logout());
     setRedirect(true);
   };
 
@@ -47,7 +47,7 @@ export const Shell: React.FC<ShellProps> = ({ title }) => {
               <ListItemText primary={'Dashboards'} />
             </ListItem>
             <ListItem style={{ flexGrow: 1 }}></ListItem>
-            <ListItem button onClick={logout}>
+            <ListItem button onClick={logoutActions}>
               <ListItemIcon>
                 <KeyboardReturn />
               </ListItemIcon>

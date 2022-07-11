@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { OneononeModel } from '../../../Common/Models/Oneonone/OneononeModel';
-import { getDashboard } from '../../../Core/Redux/Effects';
 import { AppState } from '../../../Core/Redux/Store';
 import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRepository';
 import { ActionDialog } from '../../Shared/ActionDialog';
+import { DashboardsRepository } from '../../../Core/Repositories/DashboardsRepository';
+import { getDashboard } from '../../../Core/Redux/DashboardSlice';
 
 interface HistoricalInsertProps {
   open: boolean;
@@ -34,7 +35,7 @@ const HistoricalInsertForm = ({ occurrence, setOccurrence, commentary, setCommen
 
 export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClose, oneonone }: HistoricalInsertProps) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.user)!;
+  const { user } = useSelector((state: AppState) => state.user);
 
   const [occurrence, setOccurrence] = useState<Date | null>(null);
   const [commentary, setCommentary] = useState<string | null>(null);
@@ -52,7 +53,8 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
       commentary,
     })
       .then(_ => {
-        dispatch(getDashboard(user.id));
+        DashboardsRepository.obtainById(user!.id)
+          .then((dashboard) => dispatch(getDashboard(dashboard)));
         alert('Created!');
       })
       .catch((e: ErrorModel) => alert(e.errors[0]))
@@ -76,14 +78,14 @@ export const HistoricalInsert: React.FC<HistoricalInsertProps> = ({ open, onClos
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
           <Grid container item xs={12}>
-            {user.id !== oneonone.leader.id &&
+            {user!.id !== oneonone.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
                 <Typography variant="body1">{oneonone.leader.name}</Typography>
               </Grid>
             }
 
-            {user.id !== oneonone.led.id &&
+            {user!.id !== oneonone.led.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Led</Typography>
                 <Typography variant="body1">{oneonone.led.name}</Typography>

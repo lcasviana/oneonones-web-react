@@ -1,12 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { Reducer } from './Reducers';
+import { configureStore } from '@reduxjs/toolkit';
+import DashboardSlice from './DashboardSlice';
+import UserSlice from './UserSlice';
 
-const store = createStore(
-  Reducer,
-  applyMiddleware(thunkMiddleware),
-);
+const store = configureStore({
+  reducer: {
+    dashboard: DashboardSlice,
+    user: UserSlice,
+  },
+});
 
-export type AppState = ReturnType<typeof Reducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppState = ReturnType<typeof store.getState>;
 export default store;

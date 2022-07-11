@@ -3,19 +3,19 @@ import { Button, Card, Grid, TextField, Typography } from '@mui/material';
 import { ExitToApp } from '@mui/icons-material';
 import { AuthenticationRepository } from '../../Core/Repositories/AuthenticationRepository';
 import { UserModel } from '../../Common/Models/UserModel';
-import { useDispatch } from 'react-redux';
 import { ErrorModel } from '../../Common/Models/ErrorModel';
-import { loginAction } from '../../Core/Redux/Actions';
 import { Navigate } from 'react-router-dom';
+import { useAppDispatch } from '../../Core/Redux/Hooks';
+import { login } from '../../Core/Redux/UserSlice';
 
 
 export const Login: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  const login = () => {
+  const loginActions = () => {
     if (!email || !password) {
       alert('Bad request!');
       return;
@@ -23,7 +23,7 @@ export const Login: React.FC = () => {
 
     AuthenticationRepository.login({ email, password })
       .then((user: UserModel) => {
-        dispatch(loginAction(user));
+        dispatch(login(user));
         setRedirect(true);
       })
       .catch((e: ErrorModel) => alert(e.errors[0]));
@@ -47,7 +47,7 @@ export const Login: React.FC = () => {
           </Grid>
 
           <div className="flex mt2 justify-end" style={{ gap: '1rem' }}>
-            <Button variant="contained" color="primary" onClick={login} startIcon={<ExitToApp />}>Login</Button>
+            <Button variant="contained" color="primary" onClick={loginActions} startIcon={<ExitToApp />}>Login</Button>
           </div>
         </Card>
       </main>

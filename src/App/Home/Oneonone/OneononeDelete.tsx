@@ -7,8 +7,9 @@ import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { FrequencyEnum } from '../../../Common/Enumerations/FrequencyEnum';
 import { ActionDialog } from '../../Shared/ActionDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDashboard } from '../../../Core/Redux/Effects';
 import { AppState } from '../../../Core/Redux/Store';
+import { DashboardsRepository } from '../../../Core/Repositories/DashboardsRepository';
+import { getDashboard } from '../../../Core/Redux/DashboardSlice';
 
 interface OneononeDeleteProps {
   open: boolean;
@@ -18,12 +19,13 @@ interface OneononeDeleteProps {
 
 export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, oneonone }: OneononeDeleteProps) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.user)!;
+  const { user } = useSelector((state: AppState) => state.user);
 
   const remove = () => {
     OneononesRepository.delete(oneonone.id)
       .then(_ => {
-        dispatch(getDashboard(user.id));
+        DashboardsRepository.obtainById(user!.id)
+          .then((dashboard) => dispatch(getDashboard(dashboard)));
         alert('Deleted!');
       })
       .catch((e: ErrorModel) => alert(e.errors[0]))
@@ -37,14 +39,14 @@ export const OneononeDelete: React.FC<OneononeDeleteProps> = ({ open, onClose, o
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
           <Grid container item xs={12}>
-            {user.id !== oneonone.leader.id &&
+            {user!.id !== oneonone.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
                 <Typography variant="body1">{oneonone.leader.name}</Typography>
               </Grid>
             }
 
-            {user.id !== oneonone.led.id &&
+            {user!.id !== oneonone.led.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Led</Typography>
                 <Typography variant="body1">{oneonone.led.name}</Typography>

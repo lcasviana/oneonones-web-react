@@ -6,8 +6,9 @@ import { HistoricalsRepository } from '../../../Core/Repositories/HistoricalsRep
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { ActionDialog } from '../../Shared/ActionDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDashboard } from '../../../Core/Redux/Effects';
 import { AppState } from '../../../Core/Redux/Store';
+import { DashboardsRepository } from '../../../Core/Repositories/DashboardsRepository';
+import { getDashboard } from '../../../Core/Redux/DashboardSlice';
 
 interface HistoricalUpdateProps {
   open: boolean;
@@ -17,7 +18,7 @@ interface HistoricalUpdateProps {
 
 export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClose, historical }: HistoricalUpdateProps) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.user)!;
+  const { user } = useSelector((state: AppState) => state.user);
 
   const [commentary, setCommentary] = useState<string | null>(null);
 
@@ -29,7 +30,8 @@ export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClos
       commentary,
     })
       .then(() => {
-        dispatch(getDashboard(user.id));
+        DashboardsRepository.obtainById(user!.id)
+          .then((dashboard) => dispatch(getDashboard(dashboard)));
         alert('Updated!');
       })
       .catch((e: ErrorModel) => alert(e.errors[0]))
@@ -52,14 +54,14 @@ export const HistoricalUpdate: React.FC<HistoricalUpdateProps> = ({ open, onClos
         <Grid container className="flex flex-column pa3" style={{ gap: '0.5rem' }}>
 
           <Grid container item xs={12}>
-            {user.id !== historical.leader.id &&
+            {user!.id !== historical.leader.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Leader</Typography>
                 <Typography variant="body1">{historical.leader.name}</Typography>
               </Grid>
             }
 
-            {user.id !== historical.led.id &&
+            {user!.id !== historical.led.id &&
               <Grid item xs={12} sm={6}>
                 <Typography variant="caption" color="textSecondary">Led</Typography>
                 <Typography variant="body1">{historical.led.name}</Typography>

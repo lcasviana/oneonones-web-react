@@ -1,24 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Navigate, Routes } from 'react-router-dom';
-import { PrivateRoute } from '../Core/Routes/PrivateRoute';
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Home } from './Home/Home';
 import { Login } from './Login/Login';
-import { PublicRoute } from '../Core/Routes/PublicRoute';
 import { Dashboads } from './Dashboards/Dashboards';
 import { useSelector } from 'react-redux';
 import { AppState } from '../Core/Redux/Store';
 
 export const App: React.FC = () => {
-  const user = useSelector((state: AppState) => state.user);
+  const { user } = useSelector((state: AppState) => state.user);
   const isAuthenticated = !!user;
+
+  const PublicRoute: React.FC = () =>
+    isAuthenticated ? <Navigate to={'/'} replace /> : <Outlet />;
+
+  const PrivateRoute: React.FC = () =>
+    !isAuthenticated ? <Navigate to={'/login'} replace /> : <Outlet />;
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <PrivateRoute exact path="/" component={Home} isAuthenticated={isAuthenticated} />
-          <PrivateRoute exact path="/dashboards" component={Dashboads} isAuthenticated={isAuthenticated} />
-          <PublicRoute exact path="/login" component={Login} isAuthenticated={isAuthenticated} />
-          <Navigate to="/" />
+          <Route element={<PublicRoute />} >
+            <Route path="/login" element={<Login />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboards" element={<Dashboads />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

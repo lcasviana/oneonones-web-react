@@ -3,20 +3,22 @@ import { Button } from '@mui/material';
 import { GroupAdd } from '@mui/icons-material';
 import { Dashboard } from './Dashboard/Dashboard';
 import { OneononeInsert } from './Oneonone/OneononeInsert';
-import { getDashboard } from '../../Core/Redux/Effects';
-import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../Core/Redux/Store';
 import { Shell } from '../Shared/Shell';
+import { useAppDispatch, useAppSelector } from '../../Core/Redux/Hooks';
+import { DashboardsRepository } from '../../Core/Repositories/DashboardsRepository';
+import { getDashboard } from '../../Core/Redux/DashboardSlice';
 
 export const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.user)!;
-  useEffect(() => {
-    dispatch(getDashboard(user.id));
-  }, [dispatch, user]);
-  const dashboard = useSelector((state: AppState) => state.dashboard);
-
+  const dispatch = useAppDispatch();
+  const { dashboard } = useAppSelector((state: AppState) => state.dashboard);
+  const { user } = useAppSelector((state: AppState) => state.user);
   const [oneononeInsertDialog, setOneononeInsertDialog] = useState(false);
+  
+  useEffect(() => {
+    DashboardsRepository.obtainById(user!.id)
+      .then((dashboard) => dispatch(getDashboard(dashboard)));
+  }, [dispatch, user]);
 
   return (
     <>

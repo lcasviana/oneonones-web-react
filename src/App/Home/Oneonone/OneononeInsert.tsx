@@ -9,8 +9,9 @@ import { OneononesRepository } from '../../../Core/Repositories/OneononesReposit
 import { ErrorModel } from '../../../Common/Models/ErrorModel';
 import { ActionDialog } from '../../Shared/ActionDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDashboard } from '../../../Core/Redux/Effects';
 import { AppState } from '../../../Core/Redux/Store';
+import { DashboardsRepository } from '../../../Core/Repositories/DashboardsRepository';
+import { getDashboard } from '../../../Core/Redux/DashboardSlice';
 
 interface OneononeInsertProps {
   open: boolean;
@@ -19,9 +20,9 @@ interface OneononeInsertProps {
 
 export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }: OneononeInsertProps) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.user)!;
+  const { user } = useSelector((state: AppState) => state.user);
 
-  const employees = useEmployeeAll(user);
+  const employees = useEmployeeAll(user!);
   const [person, setPerson] = useState<EmployeeModel | null>(null);
   const [leader, setLeader] = useState<boolean | null>(null);
   const [frequency, setFrequency] = useState<FrequencyEnum | null>(null);
@@ -33,12 +34,13 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
     }
 
     OneononesRepository.insert({
-      leaderId: leader ? person.id : user.id,
-      ledId: leader ? user.id : person.id,
+      leaderId: leader ? person.id : user!.id,
+      ledId: leader ? user!.id : person.id,
       frequency,
     })
       .then(_ => {
-        dispatch(getDashboard(user.id));
+        DashboardsRepository.obtainById(user!.id)
+          .then((dashboard) => dispatch(getDashboard(dashboard)));
         alert('Created!');
       })
       .catch((e: ErrorModel) => alert(e.errors[0]))
@@ -69,7 +71,7 @@ export const OneononeInsert: React.FC<OneononeInsertProps> = ({ open, onClose }:
               onChange={(_, person: EmployeeModel | null) => setPerson(person)}
               options={employees ?? []}
               getOptionLabel={(employee) => employee.name}
-              getOptionSelected={(employee) => employee.id === person?.id}
+              // getOptionSelected={(employee) => employee.id === person?.id}
               renderInput={(params) => <TextField {...params} variant="outlined" />}
             />
           </Grid>
